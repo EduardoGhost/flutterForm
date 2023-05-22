@@ -2,9 +2,7 @@
 
 A new Flutter project.
 
-div align="center"
-img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&f=y.png" width="200px" /
-/div
+<img src="https://github.com/EduardoGhost/flutterForm/issues/1">
 
 ## Getting Started
 
