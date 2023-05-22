@@ -1,6 +1,6 @@
 # flutter_project
 
-A new Flutter project.
+A new Flutter project with CRUD.
 
 <img src="https://github.com/EduardoGhost/flutterForm/issues/1">
 
