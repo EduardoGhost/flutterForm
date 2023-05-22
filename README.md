@@ -3,7 +3,7 @@
 A new Flutter project.
 
 div align="center"
-img src="image1" width="0px" /
+img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&f=y" width="0px" /
 /div
 
 ## Getting Started
