@@ -2,6 +2,10 @@
 
 A new Flutter project.
 
+div align="center"
+img src="image" width="0px" /
+/div
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
