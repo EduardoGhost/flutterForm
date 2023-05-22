@@ -3,7 +3,7 @@
 A new Flutter project.
 
 div align="center"
-img src="image" width="0px" /
+img src="image1" width="0px" /
 /div
 
 ## Getting Started
