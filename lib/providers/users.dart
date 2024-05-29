@@ -1,51 +1,69 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_project/data/users.dart';
+import 'package:flutter_project/data/dataBase.dart';
 import '../models/user.dart';
+import 'package:flutter/foundation.dart';
 
 
-class Users with ChangeNotifier{
-  final Map<String, User> _items = {...USERSDATA};
+class Users with ChangeNotifier {
+  final Map<String, User> _items = {};
+  final DatabaseHelper _dbHelper = DatabaseHelper();
 
-  List<User> get all{
+  Users() {
+    _loadUsers();
+  }
+
+  List<User> get all {
     return [..._items.values];
   }
-  int get count{
+
+  int get count {
     return _items.length;
   }
 
-  User byIndex(int i){
+  User byIndex(int i) {
     return _items.values.elementAt(i);
   }
 
-  void put(User user){
-    if(user == null){
-      return;
+  Future<void> _loadUsers() async {
+    final users = await _dbHelper.getUsers();
+    _items.clear();
+    for (var user in users) {
+      _items[user.id] = user;
     }
-    if(user.id != null &&
-        user.id.trim().isEmpty &&
-    _items.containsKey(user.id)){
-      _items.update(user.id, (_) => User(
-          user.id,
-          user.name,
-          user.email,
-          user.avatarUrl,
-      ));
-    }else{
-    final id = Random().nextDouble().toString();
-    _items.putIfAbsent(id, () => User(
-        id,
-        user.name,
-        user.email,
-        user.avatarUrl));
-
-  }
     notifyListeners();
   }
-  void remove(User user){
-    if(user != null && user.id != null){
+
+  Future<void> put(User user) async {
+    if (user == null) return;
+
+    if (user.id.isNotEmpty && _items.containsKey(user.id)) {
+      _items.update(user.id, (_) => User(
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        avatarUrl: user.avatarUrl,
+      ));
+
+      await _dbHelper.updateUser(user);
+    } else {
+      final id = Random().nextDouble().toString();
+      final newUser = User(
+        id: id,
+        name: user.name,
+        email: user.email,
+        avatarUrl: user.avatarUrl,
+      );
+      _items[id] = newUser;
+      await _dbHelper.insertUser(newUser);
+    }
+    notifyListeners();
+  }
+
+  Future<void> remove(User user) async {
+    if (user != null && user.id.isNotEmpty) {
       _items.remove(user.id);
+      await _dbHelper.deleteUser(user.id);
       notifyListeners();
     }
   }
