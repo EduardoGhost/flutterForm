@@ -1,13 +1,13 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_project/data/dataBase.dart';
+import 'package:flutter_project/data/UserRepository.dart';
 import '../models/user.dart';
 import 'package:flutter/foundation.dart';
 
 
 class Users with ChangeNotifier {
   final Map<String, User> _items = {};
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final UserRepository _userRepository = UserRepository();
 
   Users() {
     _loadUsers();
@@ -26,7 +26,7 @@ class Users with ChangeNotifier {
   }
 
   Future<void> _loadUsers() async {
-    final users = await _dbHelper.getUsers();
+    final users = await _userRepository.getUsers();
     _items.clear();
     for (var user in users) {
       _items[user.id] = user;
@@ -45,7 +45,7 @@ class Users with ChangeNotifier {
         avatarUrl: user.avatarUrl,
       ));
 
-      await _dbHelper.updateUser(user);
+      await _userRepository.updateUser(user);
     } else {
       final id = Random().nextDouble().toString();
       final newUser = User(
@@ -55,7 +55,7 @@ class Users with ChangeNotifier {
         avatarUrl: user.avatarUrl,
       );
       _items[id] = newUser;
-      await _dbHelper.insertUser(newUser);
+      await _userRepository.insertUser(newUser);
     }
     notifyListeners();
   }
@@ -63,7 +63,7 @@ class Users with ChangeNotifier {
   Future<void> remove(User user) async {
     if (user != null && user.id.isNotEmpty) {
       _items.remove(user.id);
-      await _dbHelper.deleteUser(user.id);
+      await _userRepository.deleteUser(user.id);
       notifyListeners();
     }
   }

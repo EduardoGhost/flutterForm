@@ -1,8 +1,9 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import '../models/user.dart';
 
 class DatabaseHelper {
+
+  // Singleton pattern
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   factory DatabaseHelper() => _instance;
 
@@ -10,12 +11,14 @@ class DatabaseHelper {
 
   DatabaseHelper._internal();
 
+  // Getter for the database.
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDatabase();
     return _database!;
   }
 
+  // Initializes the database.
   Future<Database> _initDatabase() async {
     return openDatabase(
       join(await getDatabasesPath(), 'user_database.db'),
@@ -28,40 +31,28 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> insertUser(User user) async {
+  // Inserts a record into the specified table.
+  Future<int> insert(String table, Map<String, dynamic> data) async {
     final db = await database;
-    await db.insert(
-      'users',
-      user.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    return await db.insert(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<User>> getUsers() async {
+  // Queries all rows in the specified table.
+  Future<List<Map<String, dynamic>>> queryAllRows(String table) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('users');
-    return List.generate(maps.length, (i) {
-      return User.fromMap(maps[i]);
-    });
+    return await db.query(table);
   }
 
-  Future<void> updateUser(User user) async {
+  // Updates a record in the specified table.
+  Future<int> update(String table, Map<String, dynamic> data, String id) async {
     final db = await database;
-    await db.update(
-      'users',
-      user.toMap(),
-      where: "id = ?",
-      whereArgs: [user.id],
-    );
+    return await db.update(table, data, where: 'id = ?', whereArgs: [id]);
   }
 
-  Future<void> deleteUser(String id) async {
+  // Deletes a record from the specified table.
+  Future<int> delete(String table, String id) async {
     final db = await database;
-    await db.delete(
-      'users',
-      where: "id = ?",
-      whereArgs: [id],
-    );
+    return await db.delete(table, where: 'id = ?', whereArgs: [id]);
   }
 }
 
