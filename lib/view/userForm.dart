@@ -17,6 +17,7 @@ class userForm extends StatelessWidget{
       _formData['name'] = user.name;
       _formData['email'] = user.email;
       _formData['avatarUrl'] = user.avatarUrl;
+      _formData['age'] = user.age as String;
     }
   }
 
@@ -43,6 +44,7 @@ class userForm extends StatelessWidget{
                     name: _formData['name'] ?? '',
                     email: _formData['email'] ?? '',
                     avatarUrl: _formData['avatarUrl'] ?? '',
+                    age: int.tryParse(_formData['age'] ?? '0') ?? 0,
                   ),
                 );
 
@@ -90,6 +92,25 @@ class userForm extends StatelessWidget{
                 initialValue: _formData['avatarUrl'],
                 decoration: InputDecoration(labelText: "URL do Avatar"),
                 onSaved: (value) => _formData['avatarUrl'] = value!,
+              ),
+              TextFormField(
+                initialValue: _formData['age'],
+                decoration: InputDecoration(labelText: "Idade"),
+                keyboardType: TextInputType.number, // Ensure keyboard is numeric
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "Idade inválida";
+                  }
+                  final age = int.tryParse(value);
+                  if (age == null) {
+                    return 'Por favor, insira um número válido';
+                  }
+                  if (age < 10 || age > 120) {
+                    return 'A idade deve ser entre 10 e 120';
+                  }
+                  return null;
+                },
+                onSaved: (value) => _formData['age'] = value!,
               ),
             ],
           ),

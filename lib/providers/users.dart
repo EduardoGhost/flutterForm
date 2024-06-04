@@ -4,7 +4,6 @@ import 'package:flutter_project/data/UserRepository.dart';
 import '../models/user.dart';
 import 'package:flutter/foundation.dart';
 
-
 class Users with ChangeNotifier {
   final Map<String, User> _items = {};
   final UserRepository _userRepository = UserRepository();
@@ -43,6 +42,7 @@ class Users with ChangeNotifier {
         name: user.name,
         email: user.email,
         avatarUrl: user.avatarUrl,
+        age: user.age,
       ));
 
       await _userRepository.updateUser(user);
@@ -53,6 +53,7 @@ class Users with ChangeNotifier {
         name: user.name,
         email: user.email,
         avatarUrl: user.avatarUrl,
+        age: user.age,
       );
       _items[id] = newUser;
       await _userRepository.insertUser(newUser);

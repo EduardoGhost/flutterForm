@@ -24,7 +24,7 @@ class DatabaseHelper {
       join(await getDatabasesPath(), 'user_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE users(id TEXT PRIMARY KEY, name TEXT, email TEXT, avatarUrl TEXT)",
+          "CREATE TABLE users(id TEXT PRIMARY KEY, name TEXT, email TEXT, avatarUrl TEXT, age INT)",
         );
       },
       version: 1,
@@ -34,6 +34,7 @@ class DatabaseHelper {
   // Inserts a record into the specified table.
   Future<int> insert(String table, Map<String, dynamic> data) async {
     final db = await database;
+    print("Dados inseridos ${data}");
     return await db.insert(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
@@ -46,6 +47,7 @@ class DatabaseHelper {
   // Updates a record in the specified table.
   Future<int> update(String table, Map<String, dynamic> data, String id) async {
     final db = await database;
+    print("Dados atualizados ${data}");
     return await db.update(table, data, where: 'id = ?', whereArgs: [id]);
   }
 

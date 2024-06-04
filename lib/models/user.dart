@@ -4,12 +4,14 @@ class User {
   final String name;
   final String email;
   final String avatarUrl;
+  final int age;
 
   User({
     required this.id,
     required this.name,
     required this.email,
     required this.avatarUrl,
+    required this.age,
   });
 
 
@@ -19,6 +21,7 @@ class User {
       'name': name,
       'email': email,
       'avatarUrl': avatarUrl,
+      'age' : age,
     };
   }
 
@@ -28,6 +31,7 @@ class User {
       name: map['name'],
       email: map['email'],
       avatarUrl: map['avatarUrl'],
+      age: map['age'],
     );
   }
 }
