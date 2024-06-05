@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/providers/users.dart';
 import 'package:flutter_project/routers/app_routers.dart';
+import 'package:flutter_project/view/userDetail.dart';
 import 'package:flutter_project/view/userForm.dart';
 import 'package:flutter_project/view/userList.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         AppRouters.HOME: (_) => userList(),
-        AppRouters.USER_FORM: (_) => userForm()},
+        AppRouters.USER_FORM: (_) => userForm(),
+        AppRouters.USER_DETAILS: (_) => userDetail()},
     )
     );
   }

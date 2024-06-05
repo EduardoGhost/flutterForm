@@ -59,10 +59,17 @@ return ListTile(
               Provider.of<Users>(context, listen: false).remove(user);
             }
           });
-          },),
+          },
+        ),
       ],
     ),
   ),
+  onTap: () {
+    Navigator.of(context).pushNamed(
+      AppRouters.USER_DETAILS,
+      arguments: user,
+    );
+  },
 );
   }
 }

@@ -17,7 +17,7 @@ class userForm extends StatelessWidget{
       _formData['name'] = user.name;
       _formData['email'] = user.email;
       _formData['avatarUrl'] = user.avatarUrl;
-      _formData['age'] = user.age as String;
+      _formData['age'] = user.age.toString();
     }
   }
 
