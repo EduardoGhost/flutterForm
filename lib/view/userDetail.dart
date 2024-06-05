@@ -8,7 +8,7 @@ class userDetail extends StatelessWidget {
     final User user = ModalRoute.of(context)!.settings.arguments as User;
     return Scaffold(
       appBar: AppBar(
-        title: Text(user.name),
+        title: Text("Detalhes"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

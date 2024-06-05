@@ -25,9 +25,12 @@ class userList extends StatelessWidget{
       ),
       body: ListView.builder(
         itemCount: users.count,
-        itemBuilder: (ctx, i) =>
-            UserTile(users.byIndex(i)),
+        itemBuilder: (ctx, i) => Container(
+          color: Colors.grey[200],
+          child: UserTile(users.byIndex(i)),
+        ),
       ),
+
     );
   }
 }
