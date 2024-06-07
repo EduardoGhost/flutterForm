@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../data/UserRepository.dart';
+import '../models/user.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,32 +11,41 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final UserRepository _userRepository = UserRepository();
 
-  void _submitLogin() {
+  void _submitLogin() async {
     if (_formKey.currentState?.validate() ?? false) {
       String email = _emailController.text;
       String password = _passwordController.text;
 
+        //Login de usuario padrao
       if (email == 'edu@bol.com' && password == 'senha123') {
         // Login bem-sucedido
         Navigator.of(context).pushReplacementNamed('/');
       } else {
-        // Mensagem de erro
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('Erro de Login'),
-            content: Text('Usuário ou senha incorretos'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-              ),
-            ],
-          ),
-        );
+        // Verificar no banco de dados
+        User? user = await _userRepository.getUserByEmail(email);
+        if (user != null && user.password == password) {
+          // Login bem-sucedido
+          Navigator.of(context).pushReplacementNamed('/');
+        } else {
+          // Mensagem de erro
+          showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text('Erro de Login'),
+              content: Text('Usuário ou senha incorretos'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+              ],
+            ),
+          );
+        }
       }
     }
   }

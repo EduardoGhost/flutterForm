@@ -5,6 +5,7 @@ class User {
   final String email;
   final String avatarUrl;
   final int age;
+  final String password;
 
   User({
     required this.id,
@@ -12,6 +13,7 @@ class User {
     required this.email,
     required this.avatarUrl,
     required this.age,
+    required this.password,
   });
 
 
@@ -22,6 +24,7 @@ class User {
       'email': email,
       'avatarUrl': avatarUrl,
       'age' : age,
+      'password' : password,
     };
   }
 
@@ -32,6 +35,7 @@ class User {
       email: map['email'],
       avatarUrl: map['avatarUrl'],
       age: map['age'],
+      password: map['password']
     );
   }
 }

@@ -43,6 +43,7 @@ class Users with ChangeNotifier {
         email: user.email,
         avatarUrl: user.avatarUrl,
         age: user.age,
+        password: user.password,
       ));
 
       await _userRepository.updateUser(user);
@@ -54,6 +55,7 @@ class Users with ChangeNotifier {
         email: user.email,
         avatarUrl: user.avatarUrl,
         age: user.age,
+        password: user.password,
       );
       _items[id] = newUser;
       await _userRepository.insertUser(newUser);

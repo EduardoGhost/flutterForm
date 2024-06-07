@@ -18,6 +18,7 @@ class userForm extends StatelessWidget{
       _formData['email'] = user.email;
       _formData['avatarUrl'] = user.avatarUrl;
       _formData['age'] = user.age.toString();
+      _formData['password'] = user.password;
     }
   }
 
@@ -45,6 +46,7 @@ class userForm extends StatelessWidget{
                     email: _formData['email'] ?? '',
                     avatarUrl: _formData['avatarUrl'] ?? '',
                     age: int.tryParse(_formData['age'] ?? '0') ?? 0,
+                    password: _formData['password'] ?? "",
                   ),
                 );
 
@@ -111,6 +113,19 @@ class userForm extends StatelessWidget{
                   return null;
                 },
                 onSaved: (value) => _formData['age'] = value!,
+              ),
+              TextFormField(
+                initialValue: _formData['password'],
+                decoration: InputDecoration(labelText: "Senha"),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "Senha invalida";
+                  }
+
+                  return null;
+                },
+                onSaved: (value) => _formData['password'] = value!,
               ),
             ],
           ),

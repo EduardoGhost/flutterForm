@@ -24,7 +24,7 @@ class DatabaseHelper {
       join(await getDatabasesPath(), 'user_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE users(id TEXT PRIMARY KEY, name TEXT, email TEXT, avatarUrl TEXT, age INT)",
+          "CREATE TABLE users(id TEXT PRIMARY KEY, name TEXT, email TEXT, avatarUrl TEXT, age INT, password TEXT)",
         );
       },
       version: 1,

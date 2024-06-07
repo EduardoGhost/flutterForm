@@ -26,4 +26,19 @@ class UserRepository {
   Future<void> deleteUser(String id) async {
     await _databaseHelper.delete('users', id);
   }
+
+  Future<User?> getUserByEmail(String email) async {
+    final db = await _databaseHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'users',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+
+    if (maps.isNotEmpty) {
+      return User.fromMap(maps.first);
+    } else {
+      return null;
+    }
+  }
 }
