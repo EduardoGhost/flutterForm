@@ -104,6 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: Text('Não tem uma conta? Registre-se'),
               ),
+              TextButton(
+                //ir para formulario
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/');
+                },
+                child: Text('Entrar como visitante'),
+              ),
             ],
           ),
         ),
