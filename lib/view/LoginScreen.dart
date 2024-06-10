@@ -21,13 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
         //Login de usuario padrao
       if (email == 'edu@bol.com' && password == 'senha123') {
         // Login bem-sucedido
-        Navigator.of(context).pushReplacementNamed('/');
+        Navigator.of(context).pushReplacementNamed('/home');
       } else {
         // Verificar no banco de dados
         User? user = await _userRepository.getUserByEmail(email);
         if (user != null && user.password == password) {
           // Login bem-sucedido
-          Navigator.of(context).pushReplacementNamed('/');
+          Navigator.of(context).pushReplacementNamed('/home');
         } else {
           // Mensagem de erro
           showDialog(
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                 //ir para formulario
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/');
+                  Navigator.of(context).pushNamed('/home');
                 },
                 child: Text('Entrar como visitante'),
               ),
